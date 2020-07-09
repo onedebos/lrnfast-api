@@ -5,6 +5,8 @@ This API serves the LrnFast React frontend. This API allows user signups and sig
 ## Built With
 
 - Node.js
+- Express
+- MongoDB Atlas
 
 ## Live Demo
 
