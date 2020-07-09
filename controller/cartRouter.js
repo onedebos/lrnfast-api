@@ -33,7 +33,6 @@ cartRouter.get('/:id', async (request, response) => {
 cartRouter.post('/', async (request, response) => {
   const { courseTitle, author, url, imgUrl, price, rating } = request.body;
 
-  console.log(courseTitle, author, url, imgUrl, price, rating, request.token);
   if (request.token === undefined || request.token === null) {
     return response.status(401).json({ error: 'token missing or invalid' });
   }

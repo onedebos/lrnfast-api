@@ -1,8 +1,11 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+
+const cors = require('cors');
+
 const app = express();
 app.use(express.json());
-const config = require("./utils/config");
+const config = require('./utils/config');
+
 app.use(cors());
 
 app.listen(config.PORT, () => {

@@ -7,7 +7,7 @@ mongoose.connect(config.DB_LINK, {
 });
 
 const cartSchema = mongoose.Schema({
-  courseTitile: {
+  courseTitle: {
     type: String,
     required: true,
   },
