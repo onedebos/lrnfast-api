@@ -6,15 +6,13 @@ mongoose.connect(process.env.DB_LINK, {
   useUnifiedTopology: true,
 });
 
-const cartSchema = mongoose.Schema({
+const AllCartSchema = mongoose.Schema({
   courseTitle: {
     type: String,
-    required: true,
   },
   author: String,
   url: {
     type: String,
-    required: true,
   },
   imgUrl: {
     type: String,
@@ -25,13 +23,9 @@ const cartSchema = mongoose.Schema({
   rating: {
     type: Number,
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
 });
 
-cartSchema.set('toJSON', {
+AllCartSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -39,6 +33,6 @@ cartSchema.set('toJSON', {
   },
 });
 
-const Cart = mongoose.model('Cart', cartSchema);
+const AllCart = mongoose.model('AllCart', AllCartSchema);
 
-module.exports = Cart;
+module.exports = AllCart;
