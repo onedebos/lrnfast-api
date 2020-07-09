@@ -9,9 +9,6 @@ cartRouter.get('/', async (request, response) => {
       username: 1,
       name: 1,
     });
-    if (process.env.NODE_ENV !== 'test') {
-      console.log('getting cart');
-    }
 
     response.json(carts);
   } catch (error) {
@@ -31,7 +28,9 @@ cartRouter.get('/:id', async (request, response) => {
 });
 
 cartRouter.post('/', async (request, response) => {
-  const { courseTitle, author, url, imgUrl, price, rating } = request.body;
+  const {
+    courseTitle, author, url, imgUrl, price, rating,
+  } = request.body;
 
   if (request.token === undefined || request.token === null) {
     return response.status(401).json({ error: 'token missing or invalid' });
@@ -60,11 +59,11 @@ cartRouter.post('/', async (request, response) => {
     const savedCart = await cart.save();
     user.carts = user.carts.concat(savedCart._id);
     user.save();
-    response.json(savedCart.toJSON()).status(201);
+    return response.json(savedCart.toJSON()).status(201);
   } catch (error) {
-    response
+    return response
       .status(400)
-      .json({ error: 'There was a problem saving the cart.' + error });
+      .json({ error: `There was a problem saving the cart.${error}` });
   }
 });
 
@@ -72,7 +71,6 @@ cartRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
   const decodedToken = jwt.verify(request.token, process.env.SECRET);
   const cart = await Cart.findById(id.toString());
-  console.log(cart);
 
   if (cart.userId.toString() !== decodedToken.id.toString()) {
     return response.json({
@@ -81,23 +79,27 @@ cartRouter.delete('/:id', async (request, response) => {
   }
   try {
     await Cart.findByIdAndDelete(id);
-    response.status(204).json({ message: 'cart deleted!' });
+    return response.status(204).json({ message: 'cart deleted!' });
   } catch (error) {
-    response.json({ error: 'The cart could not be deleted.' });
+    return response.json({ error: 'The cart could not be deleted.' });
   }
 });
 
 cartRouter.put('/:id', async (request, response) => {
   const { id } = request.params;
 
-  const { courseTitle, author, url, imgUrl, price, rating } = request.body;
-  const updatedCart = { courseTitle, author, url, imgUrl, price, rating };
+  const {
+    courseTitle, author, url, imgUrl, price, rating,
+  } = request.body;
+  const updatedCart = {
+    courseTitle, author, url, imgUrl, price, rating,
+  };
 
   try {
     const updatedCartInDb = await Cart.findByIdAndUpdate(id, updatedCart, {
       useFindAndModify: false,
     });
-    console.log(updatedCartInDb);
+
     response.json(updatedCartInDb);
   } catch (error) {
     response
