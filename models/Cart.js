@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const config = require('../utils/config');
 
-mongoose.connect(config.DB_LINK, {
+mongoose.connect(process.env.DB_LINK, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
