@@ -2,10 +2,10 @@
   "name": "lrnfast-api",
   "version": "1.0.0",
   "description": "A Node.js API that serves a React frontend course catalogue platform.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node app.js",
+    "start": "node app.js",
     "dev": "NODE_ENV=development nodemon app.js"
   },
   "author": "Adebola Adeniran",
